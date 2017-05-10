@@ -94,3 +94,11 @@
     traefik_marathon_domain: marathon.localhost
   roles:
     - traefik
+
+# Temporary workaround for https://github.com/mantl/mantl/issues/1922
+- hosts: all
+  gather_facts: no
+  become: true
+  tasks:
+    - name: update json healthchecks
+      replace: dest=/etc/distributive.d/distributive-common.json regexp='python-pip' replace='python2-pip'
